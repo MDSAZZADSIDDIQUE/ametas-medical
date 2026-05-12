@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #2c5da7;
+  --color-primary-dark: #1e4580;
+  --color-secondary: #fcb040;
+  --color-secondary-light: #ffd580;
+}
+
+/* Markdown Rendering Styles */
+.prose {
+  color: #4a5568;
+  line-height: 1.8;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  color: var(--color-primary);
+  font-weight: 300;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.prose h1 { font-size: 2.5rem; }
+.prose h2 { font-size: 1.875rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+.prose h3 { font-size: 1.5rem; }
+
+.prose p { margin-bottom: 1.5rem; }
+
+.prose ul, .prose ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.prose ul { list-style-type: disc; }
+.prose ol { list-style-type: decimal; }
+
+.prose li { margin-bottom: 0.5rem; }
+
+.prose strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.prose a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: var(--color-secondary);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2c5da7;
+  --secondary: #fcb040;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-outfit text-text-main bg-white leading-relaxed antialiased overflow-x-hidden max-w-full;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold leading-tight;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1200px] mx-auto px-5;
+  }
+  .section-padding {
+    @apply py-20;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}

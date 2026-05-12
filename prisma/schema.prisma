@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model ContentBlock {
+  id        String   @id @default(cuid())
+  key       String   
+  value     String   
+  language  String   @default("uk") // 'de', 'uk', 'us'
+  type      String   @default("text") // text, image, json, markdown, rich-text
+  section   String   // e.g., 'home', 'contact', 'legal'
+  updatedAt DateTime @updatedAt
+  
+  @@unique([key, language])
+}
+
+model HeroSlide {
+  id          String   @id @default(cuid())
+  image       String
+  title       String?
+  subtitle    String?
+  language    String   @default("uk")
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
