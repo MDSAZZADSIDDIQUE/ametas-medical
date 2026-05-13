@@ -1,12 +1,14 @@
 {
-  "name": "new-app",
-  "version": "0.1.0",
+  "name": "ametas-medical",
+  "version": "1.0.0",
   "private": true,
+  "main": "server.js",
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "build": "prisma generate && next build",
+    "start": "node server.js",
+    "lint": "eslint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",

@@ -6,10 +6,11 @@ const nextConfig: NextConfig = {
   // These keys must be at the TOP LEVEL in Next.js 15/16
   allowedDevOrigins: ['192.168.36.72', 'localhost:3000'],
   
-  // Turning off the status indicators to reduce WebSocket traffic
+  // Disable dev indicators during development if needed, 
+  // but removed 'appIsrStatus' which was causing the build error in Next.js 15+
   devIndicators: {
-    appIsrStatus: false,
-  },
+    buildActivity: false,
+  } as any,
 };
 
 export default nextConfig;
