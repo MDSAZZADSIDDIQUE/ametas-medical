@@ -13,23 +13,24 @@ const IconSections = () => {
     </section>
   );
 
+  const assetPrefix = '/ametas';
   const sections = [
     {
       key: 'icon_1_title',
-      icon: '/images/icons/AMETAS_Icons_Medicals.png',
-      hoverIcon: '/images/icons/AMETAS_Icons_Medicals_gelb.png',
+      icon: `${assetPrefix}/images/icons/AMETAS_Icons_Medicals.png`,
+      hoverIcon: `${assetPrefix}/images/icons/AMETAS_Icons_Medicals_gelb.png`,
       title: content.icon_1_title || 'ADVANCED MEDICALS',
     },
     {
       key: 'icon_2_title',
-      icon: '/images/icons/AMETAS_Icons_Technologies.png',
-      hoverIcon: '/images/icons/AMETAS_Icons_Technologies_gelb.png',
+      icon: `${assetPrefix}/images/icons/AMETAS_Icons_Technologies.png`,
+      hoverIcon: `${assetPrefix}/images/icons/AMETAS_Icons_Technologies_gelb.png`,
       title: content.icon_2_title || 'EXCELLENT TECHNOLOGIES',
     },
     {
       key: 'icon_3_title',
-      icon: '/images/icons/AMETAS_Icons_Science.png',
-      hoverIcon: '/images/icons/AMETAS_Icons_Science_gelb.png',
+      icon: `${assetPrefix}/images/icons/AMETAS_Icons_Science.png`,
+      hoverIcon: `${assetPrefix}/images/icons/AMETAS_Icons_Science_gelb.png`,
       title: content.icon_3_title || 'APPLIED SCIENCES',
     }
   ];

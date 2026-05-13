@@ -12,10 +12,13 @@ const Footer = () => {
   if (loading) return null;
 
   const getLinkHref = (href: string) => {
+    let finalHref = href.startsWith('/') ? `/ametas${href}` : href;
+    if (href === '/') finalHref = '/ametas/';
+    
     if (isEditor && !href.startsWith('http') && !href.includes('downloads')) {
-      return `${href}?preview=true`;
+      return `${finalHref}${finalHref.includes('?') ? '&' : '?'}preview=true`;
     }
-    return href;
+    return finalHref;
   };
 
   const navItems = [
@@ -37,14 +40,14 @@ const Footer = () => {
             <ul className="space-y-4">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <Link 
+                  <a 
                     href={getLinkHref(item.href)}
                     target={item.external ? "_blank" : undefined}
                     rel={item.external ? "noopener noreferrer" : undefined}
                     className="text-sm opacity-80 hover:opacity-100 hover:text-secondary transition-all"
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

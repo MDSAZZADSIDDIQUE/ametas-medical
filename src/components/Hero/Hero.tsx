@@ -9,10 +9,13 @@ const Hero = () => {
   const { slides: dbSlides, content, loading } = useContent();
   const [current, setCurrent] = useState(0);
 
-  const slides = dbSlides.length > 0 ? dbSlides : [
-    { id: '1', image: '/images/slider/slider1.jpg', title: '', subtitle: '' },
-    { id: '2', image: '/images/slider/slider2.jpg', title: '', subtitle: '' },
-    { id: '3', image: '/images/slider/slider3.jpg', title: '', subtitle: '' },
+  const assetPrefix = '/ametas';
+  const slides = dbSlides.length > 0 
+    ? dbSlides.map(s => ({ ...s, image: s.image.startsWith('/images') ? `${assetPrefix}${s.image}` : s.image }))
+    : [
+    { id: '1', image: `${assetPrefix}/images/slider/slider1.jpg`, title: '', subtitle: '' },
+    { id: '2', image: `${assetPrefix}/images/slider/slider2.jpg`, title: '', subtitle: '' },
+    { id: '3', image: `${assetPrefix}/images/slider/slider3.jpg`, title: '', subtitle: '' },
   ];
 
   const nextSlide = useCallback(() => {

@@ -22,10 +22,13 @@ const Navbar = () => {
   );
 
   const getLinkHref = (href: string) => {
+    let finalHref = href.startsWith('/') ? `/ametas${href}` : href;
+    if (href === '/') finalHref = '/ametas/';
+    
     if (isEditor && !href.startsWith('http') && !href.includes('downloads')) {
-      return `${href}?preview=true`;
+      return `${finalHref}${finalHref.includes('?') ? '&' : '?'}preview=true`;
     }
-    return href;
+    return finalHref;
   };
 
   const navItems = [
@@ -36,10 +39,12 @@ const Navbar = () => {
     { name: language === 'de' ? 'RETOUREN' : 'RETURN POLICY', href: '/downloads/Retouren_AMETAS.pdf', external: true },
   ];
 
+  const assetPrefix = '/ametas';
+  
   const languages = [
-    { code: 'de', name: 'German', flag: '/images/icons/flags/de.png' },
-    { code: 'uk', name: 'UK English', flag: '/images/icons/flags/uk.png' },
-    { code: 'us', name: 'US English', flag: '/images/icons/flags/us.png' },
+    { code: 'de', name: 'German', flag: `${assetPrefix}/images/icons/flags/de.png` },
+    { code: 'uk', name: 'UK English', flag: `${assetPrefix}/images/icons/flags/uk.png` },
+    { code: 'us', name: 'US English', flag: `${assetPrefix}/images/icons/flags/us.png` },
   ];
 
   return (
@@ -47,10 +52,10 @@ const Navbar = () => {
       <div className="container">
         <div className="flex justify-between items-center w-full">
           {/* Logo */}
-          <Link href={getLinkHref("/")} className="flex items-center shrink-0">
+          <a href={getLinkHref("/")} className="flex items-center shrink-0">
             <Editable contentKey="site_logo">
               <Image 
-                src={content.site_logo || "/images/logo/Logo_Ametas.png"} 
+                src={(content.site_logo && content.site_logo.startsWith('/images')) ? `${assetPrefix}${content.site_logo}` : (content.site_logo || `${assetPrefix}/images/logo/Logo_Ametas.png`)} 
                 alt="AMETAS medical" 
                 width={300} 
                 height={80} 
@@ -58,7 +63,7 @@ const Navbar = () => {
                 className="object-contain w-auto h-12 lg:h-20"
               />
             </Editable>
-          </Link>
+          </a>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex flex-col items-end gap-3">
@@ -66,14 +71,23 @@ const Navbar = () => {
               <ul className="flex items-center gap-6">
                 {navItems.map((item) => (
                   <li key={item.name}>
-                    <Link 
-                      href={getLinkHref(item.href)}
-                      target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noopener noreferrer" : undefined}
-                      className="text-[0.8rem] font-bold text-primary hover:text-secondary transition-colors tracking-widest"
-                    >
-                      {item.name}
-                    </Link>
+                    {item.external ? (
+                      <a 
+                        href={item.href.startsWith('/') ? `${assetPrefix}${item.href}` : item.href}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-[0.8rem] font-bold text-primary hover:text-secondary transition-colors tracking-widest"
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <a 
+                        href={getLinkHref(item.href)}
+                        className="text-[0.8rem] font-bold text-primary hover:text-secondary transition-colors tracking-widest"
+                      >
+                        {item.name}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -108,7 +122,24 @@ const Navbar = () => {
             <ul className="flex flex-col gap-6">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <Link href={getLinkHref(item.href)} onClick={() => setIsMenuOpen(false)} className="text-xl font-bold text-primary tracking-widest block">{item.name}</Link>
+                  {item.external ? (
+                    <a 
+                      href={item.href.startsWith('/') ? `${assetPrefix}${item.href}` : item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-bold text-primary tracking-widest block"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <a 
+                      href={getLinkHref(item.href)} 
+                      onClick={() => setIsMenuOpen(false)} 
+                      className="text-xl font-bold text-primary tracking-widest block"
+                    >
+                      {item.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

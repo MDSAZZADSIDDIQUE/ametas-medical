@@ -10,7 +10,7 @@ export const EditorProvider = ({ children }: { children: React.ReactNode }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    setIsEditor(window.self !== window.top && searchParams.get('preview') === 'true');
+    setIsEditor(window.self !== window.top && searchParams?.get('preview') === 'true');
   }, [searchParams]);
 
   return (

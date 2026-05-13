@@ -22,7 +22,8 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const fetchContent = useCallback(async (lang: string) => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/content?lang=${lang}`);
+      const baseUrl = process.env.NODE_ENV === 'production' ? '/ametas' : '';
+      const res = await fetch(`${baseUrl}/api/content/${lang}`);
       const json = await res.json();
       setData(json);
       
